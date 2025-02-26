@@ -35,6 +35,10 @@ public class UIManager : MonoBehaviour
     // Whether or not the application is paused
     public bool isPaused = false;
 
+    // Somewhere at the top of UIManager.cs
+    public int currentPageIndex = 0;
+
+
     // A list of all UI element classes
     private List<UIelement> UIelements;
 
@@ -205,6 +209,7 @@ public class UIManager : MonoBehaviour
     /// <param name="pageIndex">The index in the page list to go to</param>
     public void GoToPage(int pageIndex)
     {
+        currentPageIndex = pageIndex;
         if (pageIndex < pages.Count && pages[pageIndex] != null)
         {
             SetActiveAllPages(false);
@@ -228,6 +233,13 @@ public class UIManager : MonoBehaviour
         int pageIndex = pages.IndexOf(page);
         GoToPage(pageIndex);
     }
+    // Add this to the class in UIManager.cs
+public int GetCurrentPageIndex()
+{
+    // If you have a variable storing the current screen index, return it
+    return currentPageIndex;
+}
+
 
     /// <summary>
     /// Description:
@@ -250,3 +262,4 @@ public class UIManager : MonoBehaviour
         }
     }
 }
+

@@ -7,11 +7,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
+
+
 /// <summary>
 /// Class which manages the game
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+
+    [Header("Player Lives")]
+[Tooltip("The current lives of the player")]
+public int playerLives = 3;
+
+// Add a method to update lives
+public void UpdatePlayerLives(int lives)
+{
+    playerLives = lives;
+}
+
     // The script that manages all others
     public static GameManager instance = null;
 
