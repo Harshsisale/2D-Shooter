@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7145396934534099639}
   - component: {fileID: 5150434386748853793}
   - component: {fileID: 8249677050371734819}
+  - component: {fileID: 2605946699615317233}
+  - component: {fileID: 1078824931966533734}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -215,8 +217,8 @@ MonoBehaviour:
   useLives: 1
   currentLives: 3
   maximumLives: 5
-  deathEffect: {fileID: 6218169049356006189, guid: 68794701c80057447857bb433e54c579, type: 3}
-  hitEffect: {fileID: 5156419567158778961, guid: d35295653acdbe24081a5caee3d9c353, type: 3}
+  deathEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
 --- !u!50 &7145396934534099639
 Rigidbody2D:
   serializedVersion: 4
@@ -332,6 +334,54 @@ MonoBehaviour:
       m_Action: Fire
       m_Flags: 0
     m_Flags: 0
-  fireRate: 0.05
+  fireRate: 0.2
   projectileSpread: 1
   fireEffect: {fileID: 8120349349314865351, guid: 4aacd270bac9d0f478f6b9811cc62883, type: 3}
+--- !u!114 &2605946699615317233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119931671542013732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75388997f8d4264a86b7441dc9ea74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 1663423899068511630, guid: dc0adf7921883b546b300dbaabaf1bec, type: 3}
+  projectileHolder: {fileID: 0}
+  isPlayerControlled: 1
+  fireAction:
+    m_Name: Fire
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: eafa6c88-6833-453d-a6c0-afc2d65f839a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b877a299-4835-40dc-81fc-03168df76b6a
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fire
+      m_Flags: 0
+    m_Flags: 0
+  fireRate: 2.7
+  projectileSpread: 2
+  fireEffect: {fileID: 8120349349314865351, guid: 4aacd270bac9d0f478f6b9811cc62883, type: 3}
+--- !u!114 &1078824931966533734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119931671542013732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc464a38b0af0e240b9fd4514bb00143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLives: 0

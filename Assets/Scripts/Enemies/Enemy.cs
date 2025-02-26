@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Shooting")]
     [Tooltip("The enemy's gun components")]
+
+    
     public List<ShootingController> guns = new List<ShootingController>();
 
     /// <summary>
@@ -59,6 +61,7 @@ public class Enemy : MonoBehaviour
     {
         HandleBehaviour();       
     }
+
 
     /// <summary>
     /// Description:

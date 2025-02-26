@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using System.Collections;
+
 
 /// <summary>
 /// This class handles the health state of a game object.
@@ -33,6 +34,7 @@ public class Health : MonoBehaviour
     public int currentLives = 3;
     [Tooltip("The maximum number of lives this health can have")]
     public int maximumLives = 5;
+    
 
     /// <summary>
     /// Description:
@@ -44,9 +46,14 @@ public class Health : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if (gameObject.CompareTag("Player"))
+    {
+        animator = GetComponent<Animator>();
+    }
         SetRespawnPoint(transform.position);
     }
 
+    
     /// <summary>
     /// Description:
     /// Standard Unity function called once per frame
@@ -107,10 +114,15 @@ public class Health : MonoBehaviour
     /// void (no return)
     /// </summary>
     void Respawn()
-    {
-        transform.position = respawnPosition;
-        currentHealth = defaultHealth;
-    }
+{
+    // Add a smooth transition or animation instead of setting position directly
+    
+    currentHealth = defaultHealth;
+}
+
+// Coroutine for a smoother respawn transition
+
+
 
     /// <summary>
     /// Description:
@@ -121,24 +133,70 @@ public class Health : MonoBehaviour
     /// void (no return)
     /// </summary>
     /// <param name="damageAmount">The amount of damage to take</param>
-    public void TakeDamage(int damageAmount)
+    
+    
+    private Animator animator;
+    private int hurtAnimationLoops = 0;
+ 
+
+public void TakeDamage(int damageAmount)
+{
+    if (isInvincableFromDamage || isAlwaysInvincible)
     {
-        if (isInvincableFromDamage || isAlwaysInvincible)
-        {
-            return;
-        }
-        else
-        {
-            if (hitEffect != null)
-            {
-                Instantiate(hitEffect, transform.position, transform.rotation, null);
-            }
-            timeToBecomeDamagableAgain = Time.time + invincibilityTime;
-            isInvincableFromDamage = true;
-            currentHealth -= damageAmount;
-            CheckDeath();
-        }
+        return;
     }
+
+    if (hitEffect != null)
+    {
+        Instantiate(hitEffect, transform.position, transform.rotation, null);
+    }
+    timeToBecomeDamagableAgain = Time.time + invincibilityTime;
+    isInvincableFromDamage = true;
+    currentHealth -= damageAmount;
+    currentHealth = Mathf.Clamp(currentHealth, 0, maximumHealth);
+
+    // Only trigger hurt animation if this is the player
+    if (gameObject.CompareTag("Player"))
+    {
+        // Reset loop counter and trigger animation
+        hurtAnimationLoops = 0;
+        animator.SetInteger("HurtLoopCount", 0); // Reset the loop counter in Animator
+        animator.SetTrigger("TakeDamage");
+    }
+
+    if (currentHealth <= 0)
+    {
+        CheckDeath();
+    }
+}
+
+
+// Called at the end of the hurt animation
+
+// Called by the Animation Event to count the loops
+public void IncrementHurtLoop()
+{
+    // Increment the loop counter
+    hurtAnimationLoops++;
+
+    // Update the Animator parameter
+    animator.SetInteger("HurtLoopCount", hurtAnimationLoops);
+
+    // If loops completed, reset to stop looping
+    if (hurtAnimationLoops >= 3)
+    {
+        animator.ResetTrigger("TakeDamage");
+    }
+}
+
+// Adjust these values as needed
+
+
+
+
+
+
+
 
     /// <summary>
     /// Description:
